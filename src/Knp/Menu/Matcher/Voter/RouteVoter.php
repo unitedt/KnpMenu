@@ -78,7 +78,8 @@ class RouteVoter implements VoterInterface
         $routeParameters = $this->request->attributes->get('_route_params', array());
 
         foreach ($testedRoute['parameters'] as $name => $value) {
-            if (!isset($routeParameters[$name]) || $routeParameters[$name] !== (string) $value) {
+            // use a weak comparison, parameters can be numeric or strings
+            if (!isset($routeParameters[$name]) || $routeParameters[$name] != $value) {
                 return false;
             }
         }
